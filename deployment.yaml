@@ -1,0 +1,28 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nodejs-app
+  labels:
+    app: nodejs
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: nodejs
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        app: nodejs
+    spec:
+      containers:
+      - image: nitheesh86/nodejs
+        name: nodejs
+        imagePullPolicy: IfNotPresent
+        env:
+        - name: NAME
+          valueFrom:
+            configMapKeyRef:
+              name: nodejs-config
+              key: name
