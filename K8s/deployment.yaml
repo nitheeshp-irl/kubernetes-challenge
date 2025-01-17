@@ -9,8 +9,6 @@ spec:
   selector:
     matchLabels:
       app: nodejs
-  strategy:
-    type: Recreate
   template:
     metadata:
       labels:
@@ -20,6 +18,9 @@ spec:
       - image: nitheesh86/nodejs
         name: nodejs
         imagePullPolicy: IfNotPresent
+        ports:
+        - containerPort: 4000
+          name: endpoint
         env:
         - name: NAME
           valueFrom:
